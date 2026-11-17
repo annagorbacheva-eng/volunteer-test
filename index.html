@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Какое волонтёрство — твоё?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f3ee; --card:#ffffff; --ink:#1d1b19; --muted:#6f6a63;
+    --accent:#1f6f5c; --accent-soft:#e3efe9; --line:#e6e0d7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+    background:var(--bg); color:var(--ink);
+    display:flex; justify-content:center;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .app{width:100%; max-width:460px; min-height:100%; padding:24px 20px 28px; display:flex; flex-direction:column}
+  .brand{display:flex; justify-content:center; padding-top:env(safe-area-inset-top)}
+  .logo{height:22px; width:auto; display:block}
+  .screen{display:none; flex:1; flex-direction:column}
+  .screen.on{display:flex}
+
+  /* start */
+  .start{justify-content:center; text-align:center; gap:18px}
+  .start .big{font-size:64px; line-height:1}
+  h1{font-size:30px; line-height:1.15; font-weight:800}
+  .sub{color:var(--muted); font-size:16px}
+  .btn{
+    appearance:none; border:0; border-radius:16px; cursor:pointer;
+    background:var(--accent); color:#fff; font:inherit; font-weight:600; font-size:18px;
+    padding:16px 22px; width:100%;
+  }
+  .btn.ghost{background:transparent; color:var(--accent); border:2px solid var(--accent)}
+
+  /* quiz */
+  .top{display:flex; align-items:center; justify-content:space-between; margin:18px 0 10px}
+  .count{font-size:14px; color:var(--muted); font-weight:600}
+  .bar{height:6px; background:var(--line); border-radius:3px; overflow:hidden; margin-bottom:22px}
+  .bar i{display:block; height:100%; width:0; background:var(--accent); transition:width .3s}
+  .q{font-size:22px; font-weight:800; margin-bottom:16px}
+  .opts{display:flex; flex-direction:column; gap:12px; flex:1}
+  .opt{
+    appearance:none; border:2px solid var(--line); background:var(--card); border-radius:20px;
+    font:inherit; color:var(--ink); cursor:pointer; text-align:center;
+    flex:1; min-height:150px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px;
+    padding:18px; transition:transform .12s, border-color .12s, background .12s;
+  }
+  .opt .e{font-size:54px; line-height:1}
+  .opt .t{font-size:18px; font-weight:600; line-height:1.25}
+  .opt:active{transform:scale(.98)}
+  .opt.picked{border-color:var(--accent); background:var(--accent-soft)}
+  .opt.small{min-height:84px; flex:0 0 auto; flex-direction:row; gap:14px; justify-content:flex-start; text-align:left}
+  .opt.small .e{font-size:36px}
+  .or{text-align:center; color:var(--muted); font-size:13px; font-weight:600; letter-spacing:.1em}
+  .back{appearance:none; border:0; background:none; color:var(--muted); font:inherit; font-size:14px; cursor:pointer; padding:4px 0}
+  .back[hidden]{visibility:hidden; display:block}
+
+  /* result */
+  .result{gap:16px; padding-top:18px}
+  .rcard{background:var(--card); border-radius:24px; padding:26px 22px; text-align:center; border:1px solid var(--line)}
+  .rcard .e{font-size:68px; line-height:1}
+  .label{font-size:13px; color:var(--muted); font-weight:600; letter-spacing:.08em; text-transform:uppercase; margin-top:14px}
+  .rcard h2{font-size:28px; font-weight:800; margin:6px 0 10px}
+  .rcard p{font-size:16px; line-height:1.45; color:#3b3833}
+  .try{background:var(--accent-soft); border-radius:20px; padding:18px 20px}
+  .try h3{font-size:15px; font-weight:800; margin-bottom:8px}
+  .try ul{list-style:none; display:flex; flex-direction:column; gap:6px}
+  .try li{font-size:15px; line-height:1.35}
+  .second{font-size:15px; color:#3b3833; text-align:center}
+  .second b{font-weight:800}
+  .note{font-size:13px; color:var(--muted); text-align:center; line-height:1.4}
+  .fair{background:var(--ink); color:#fff; border-radius:20px; padding:16px 20px; font-size:15px; line-height:1.4; text-align:center}
+  .fair b{font-weight:800}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="brand"><svg class="logo" role="img" aria-label="MATCH" fill="#1d1d1b" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 664.7 144.78"><path  d="M226.52,666.48a34.42,34.42,0,0,0-2.2-12.27,52.1,52.1,0,0,0-6.07-11.36,51.26,51.26,0,0,0-6.07,11.36A34.42,34.42,0,0,0,210,666.48a29.76,29.76,0,0,0,.33,4.41,14,14,0,0,0,1.19,4,7,7,0,0,0,6.85,4.14,6.86,6.86,0,0,0,4.18-1.19,8.12,8.12,0,0,0,2.49-3,14.34,14.34,0,0,0,1.19-4.09,30.85,30.85,0,0,0,.32-4.27ZM348.14,559.3V694.15H322.4V583.29q-3.4,1-9.15,3t-13,4.83Q293,594,284.66,597.67T267.8,606q-8.55,4.54-17,9.83A160.83,160.83,0,0,0,235.07,627a72.92,72.92,0,0,1,9.47,15.22,59.45,59.45,0,0,1,4.37,13.1,56.16,56.16,0,0,1,1.05,10c0,1.17-.11,3-.32,5.52a38.94,38.94,0,0,1-1.84,8.5,35.79,35.79,0,0,1-3.72,8.23,25.65,25.65,0,0,1-14.25,11.31,36.54,36.54,0,0,1-11.4,1.83,36.93,36.93,0,0,1-12-2,26,26,0,0,1-9.74-5.75,30.64,30.64,0,0,1-7.31-11.3,42.87,42.87,0,0,1-2.8-15.91A57.55,57.55,0,0,1,190,647a69,69,0,0,1,11.35-20,163.82,163.82,0,0,0-13.83-10.11q-7.31-4.78-15-9t-15.49-8q-7.82-3.72-15.31-6.8t-14.52-5.56q-7-2.49-13.19-4.23V694.15H88.27V559.3h23.35q7.08,1.92,15.62,4.82t17.88,6.57q9.33,3.67,19.12,8.14t19.26,9.6q9.47,5.16,18.34,10.94a179.34,179.34,0,0,1,16.41,12,207.6,207.6,0,0,1,19.95-14.53,260,260,0,0,1,24.68-14q13.46-6.75,29-12.77a343.19,343.19,0,0,1,33-10.8Z" transform="translate(-88.27 -555.99)"/><path  d="M391,663.72a43.56,43.56,0,0,0,14.8,8.92,50,50,0,0,0,16.73,2.84,57.45,57.45,0,0,0,18.57-3.12,60.35,60.35,0,0,0,16.87-8.87A56.91,56.91,0,0,0,471,649.7a46.16,46.16,0,0,0,7.17-18q-7.81-.09-16.32-.09t-16.68.14q-8.19.13-15.54.41t-12.87.74l-1.38.09a128.73,128.73,0,0,0-15.26,2.11,31.09,31.09,0,0,0-9.46,3.4,11.67,11.67,0,0,0-4.87,5.2,18,18,0,0,0-1.38,7.4,12.78,12.78,0,0,0,1.79,6.57,29.63,29.63,0,0,0,4.73,6Zm110.49-24.64c-.06,1.23-.09,2.49-.09,3.77q0,3.58.42,8.28a66.13,66.13,0,0,0,1.61,9.69,42.6,42.6,0,0,0,2.94,8.65,10.3,10.3,0,0,0,4,4.82l-11.86,22.15a23.89,23.89,0,0,1-6.39-4.27,33.46,33.46,0,0,1-5-5.93,43.26,43.26,0,0,1-3.81-7.08,73.2,73.2,0,0,1-2.81-7.72,81.47,81.47,0,0,1-25.6,18.43,83.64,83.64,0,0,1-15.9,5.43,89.46,89.46,0,0,1-17.6,2.25H419a69.3,69.3,0,0,1-15.26-1.7,63.51,63.51,0,0,1-14.29-5.06,60.28,60.28,0,0,1-12.14-7.9,55.07,55.07,0,0,1-9.14-9.79,42.84,42.84,0,0,1-5.75-10.9,33.38,33.38,0,0,1-2-11.07,35.54,35.54,0,0,1,3-15.31,33.26,33.26,0,0,1,7.72-10.57,39,39,0,0,1,10.67-6.85,69.52,69.52,0,0,1,11.85-3.95,92.07,92.07,0,0,1,11.22-1.93c3.52-.37,6.45-.64,8.78-.83l1.29-.09q5.59-.47,12.91-.78t15.4-.46q8.09-.14,16.5-.14t16.22.09a20.39,20.39,0,0,0-3.58-10.89A40.13,40.13,0,0,0,462.58,589a55.38,55.38,0,0,0-14.84-7.81,54.67,54.67,0,0,0-18.53-3.08,61.56,61.56,0,0,0-11.35,1.1A60.85,60.85,0,0,0,406,582.83a79.34,79.34,0,0,0-12.18,6.38,85.69,85.69,0,0,0-12.22,9.52l-16.18-14.62A76.27,76.27,0,0,1,380,571.34a89.55,89.55,0,0,1,16.36-8.74,91,91,0,0,1,16.82-5,85.69,85.69,0,0,1,16-1.6,94.22,94.22,0,0,1,24.27,2.85,77.08,77.08,0,0,1,18.71,7.49,59.39,59.39,0,0,1,13.6,10.52,64.08,64.08,0,0,1,9.06,11.95,50.84,50.84,0,0,1,5,11.77,38.61,38.61,0,0,1,1.56,10c0,.06,0,.09-.13.09s-.14,0-.14.09h.27v28.31Z" transform="translate(-88.27 -555.99)"/><polygon  points="483.7 3.4 483.7 24.64 460.17 24.64 460.17 138.16 435.99 138.16 435.99 24.64 412.55 24.64 412.55 3.4 483.7 3.4 483.7 3.4"/><path  d="M660.22,694.51a173.84,173.84,0,0,1-24.91-1.74,130.15,130.15,0,0,1-22.62-5.29,91.15,91.15,0,0,1-19.3-9,62.28,62.28,0,0,1-15-12.92,56,56,0,0,1-9.79-17.14,62.78,62.78,0,0,1-3.5-21.51,58.77,58.77,0,0,1,3.5-20.68,57.55,57.55,0,0,1,9.79-16.92,66.31,66.31,0,0,1,15-13.19,92.24,92.24,0,0,1,19.3-9.42,124.13,124.13,0,0,1,22.62-5.65,160.29,160.29,0,0,1,24.91-1.89l-.1,22.62a109.44,109.44,0,0,0-30.38,4A75.1,75.1,0,0,0,607.64,596a45.62,45.62,0,0,0-13.56,14.34,34.06,34.06,0,0,0-4.83,16.5v.73a33.58,33.58,0,0,0,4.23,16,42.38,42.38,0,0,0,13.1,14.25q8.86,6.33,22.24,10.29t31.3,4l.1,22.33Z" transform="translate(-88.27 -555.99)"/><polygon  points="664.7 3.4 664.7 138.16 639.42 138.16 639.42 81.26 611.02 81.26 611.02 138.16 585.74 138.16 585.74 3.4 611.02 3.4 611.02 60.03 639.42 60.03 639.42 3.4 664.7 3.4 664.7 3.4"/></svg></div>
+
+  <!-- Start -->
+  <section class="screen start on" id="s-start">
+    <div class="big">🤝</div>
+    <h1>Какое волонтёрство — твоё?</h1>
+    <p class="sub">15 вопросов · около 2 минут<br>Просто выбирай то, что ближе</p>
+    <button class="btn" id="go">Начать</button>
+  </section>
+
+  <!-- Quiz -->
+  <section class="screen" id="s-quiz">
+    <div class="top">
+      <button class="back" id="back">← Назад</button>
+      <span class="count" id="count"></span>
+    </div>
+    <div class="bar"><i id="bar"></i></div>
+    <div class="q" id="q">Что выберешь?</div>
+    <div class="opts" id="opts"></div>
+  </section>
+
+  <!-- Result -->
+  <section class="screen result" id="s-result">
+    <div class="rcard">
+      <div class="e" id="r-emoji"></div>
+      <div class="label">Твоё волонтёрство</div>
+      <h2 id="r-name"></h2>
+      <p id="r-desc"></p>
+    </div>
+    <div class="try">
+      <h3>Что попробовать</h3>
+      <ul id="r-try"></ul>
+    </div>
+    <div class="second" id="r-second"></div>
+    <div class="fair">Загляни на <b>ярмарку фондов в 16:00</b> — там можно выбрать проект и присоединиться сразу</div>
+    <button class="btn ghost" id="again">Пройти ещё раз</button>
+  </section>
+</div>
+
+<script>
+const TYPES = {
+  people: {
+    emoji:"🫶", name:"Помощь людям",
+    desc:"Тебе важно видеть конкретного человека и то, как ему становится лучше. Твоя сила — внимание и умение поддержать.",
+    tries:["Наставничество для младших школьников","Общение с пожилыми людьми","Помощь детям в больницах"]
+  },
+  animals: {
+    emoji:"🐾", name:"Помощь животным",
+    desc:"Тебе близки забота и ответственность за тех, кто не может попросить о помощи сам.",
+    tries:["Выгул собак из приюта","Передержка котят","Сборы корма и лекарств для приютов"]
+  },
+  eco: {
+    emoji:"🌱", name:"Экология",
+    desc:"Тебе нравится действовать руками и видеть результат: место, которое стало лучше, чем было.",
+    tries:["Посадка деревьев","Уборка берегов и парков","Раздельный сбор отходов в школе"]
+  },
+  events: {
+    emoji:"🎪", name:"Событийное волонтёрство",
+    desc:"Тебя заряжают энергия, команда и большие события. Ты легко включаешься и знакомишься с людьми.",
+    tries:["Фестивали и концерты","Спортивные забеги и турниры","Конференции и выставки"]
+  },
+  skills: {
+    emoji:"💻", name:"Волонтёрство навыками",
+    desc:"Ты помогаешь тем, что умеешь лучше всего. Твой вклад остаётся надолго — и это можно делать онлайн.",
+    tries:["Дизайн и соцсети для фонда","Монтаж видео","Переводы и репетиторство"]
+  },
+  advocacy: {
+    emoji:"📣", name:"Просвещение и акции",
+    desc:"Тебе важно влиять на многих людей: рассказывать о проблеме, вдохновлять и вести за собой.",
+    tries:["Акция или сбор средств в школе","Просветительские уроки и выступления","Кампании фондов в соцсетях"]
+  }
+};
+
+// 15 пар: каждый тип встречается с каждым ровно один раз (5 раз на тип)
+const ITEMS = {
+  people:  [["📖","Почитать книгу пожилому человеку"],["✏️","Позаниматься с младшеклассником"],["🏥","Поддержать ребёнка в больнице"],["🛒","Помочь пожилому соседу с покупками"],["🧩","Провести игры для детей с особенностями"]],
+  animals: [["🐕","Выгулять собак из приюта"],["🐈","Взять котят на передержку"],["🐦","Сделать кормушки для птиц"],["🛁","Помыть и вычесать собак в приюте"],["🦔","Выхаживать диких животных"]],
+  eco:     [["🌳","Посадить деревья в парке"],["🏞️","Очистить берег реки"],["♻️","Наладить раздельный сбор отходов"],["🌼","Разбить клумбу во дворе"],["🥾","Расчистить экологическую тропу"]],
+  events:  [["🎪","Встречать гостей на фестивале"],["🏃","Помогать на городском забеге"],["🎟️","Работать на большой конференции"],["🎵","Помогать за сценой на концерте"],["⚽","Работать на спортивном турнире"]],
+  skills:  [["🎨","Сделать дизайн для фонда"],["🎬","Смонтировать видео для фонда"],["🌍","Перевести тексты для фонда"],["💻","Сделать сайт для фонда"],["📷","Провести фотосессию для фонда"]],
+  advocacy:[["📣","Провести акцию в школе"],["💰","Запустить сбор средств"],["🎤","Выступить о важной проблеме"],["📱","Запустить флешмоб в соцсетях"],["🧁","Устроить благотворительную ярмарку"]]
+};
+const SCHEDULE = [
+  ["people","animals"],["eco","events"],["skills","advocacy"],
+  ["people","eco"],["animals","skills"],["events","advocacy"],
+  ["people","events"],["eco","skills"],["animals","advocacy"],
+  ["people","skills"],["animals","events"],["eco","advocacy"],
+  ["people","advocacy"],["animals","eco"],["events","skills"]
+];
+const PAIRS = (()=>{ const used={}; return SCHEDULE.map(p=>p.map(t=>{ const i=used[t]=(used[t]??-1)+1; const [e,l]=ITEMS[t][i]; return {t,e,l}; })); })();
+
+let order = [], answers = [], step = 0;
+const $ = id => document.getElementById(id);
+
+function show(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("on"));
+  $(id).classList.add("on");
+  window.scrollTo(0,0);
+}
+
+function start(){
+  // случайный порядок сторон в каждой паре
+  order = PAIRS.map(p => Math.random() < .5 ? [p[0],p[1]] : [p[1],p[0]]);
+  answers = []; step = 0;
+  render(); show("s-quiz");
+}
+
+function render(){
+  $("count").textContent = (step+1) + " из " + order.length;
+  $("bar").style.width = (step/order.length*100) + "%";
+  $("back").hidden = step === 0;
+  $("q").textContent = "Что выберешь?";
+  const box = $("opts"); box.innerHTML = "";
+  order[step].forEach((o,i)=>{
+    if(i===1){ const d=document.createElement("div"); d.className="or"; d.textContent="ИЛИ"; box.appendChild(d); }
+    const b = document.createElement("button");
+    b.className = "opt";
+    b.innerHTML = '<span class="e">'+o.e+'</span><span class="t">'+o.l+'</span>';
+    b.onclick = () => pick(o.t, b);
+    box.appendChild(b);
+  });
+}
+
+let locked = false;
+function pick(type, el){
+  if(locked) return; locked = true;
+  el.classList.add("picked");
+  answers[step] = type;
+  setTimeout(()=>{
+    locked = false; step++;
+    if(step < order.length) render(); else finish();
+  }, 220);
+}
+
+function scores(){
+  const score = {}; Object.keys(TYPES).forEach(k=>score[k]=0);
+  answers.forEach(t=>score[t]++);
+  return score;
+}
+
+function finish(){
+  $("bar").style.width = "100%";
+  const score = scores();
+  const max = Math.max(...Object.values(score));
+  const top = Object.keys(score).filter(k=>score[k]===max);
+  if(top.length > 1) tiebreak(top, score); else showResult(top[0], score);
+}
+
+function tiebreak(top, score){
+  $("count").textContent = "Последний вопрос";
+  $("back").hidden = true;
+  $("q").textContent = "Что тебе ближе всего?";
+  const box = $("opts"); box.innerHTML = "";
+  top.forEach(k=>{
+    const b = document.createElement("button");
+    b.className = "opt small";
+    b.innerHTML = '<span class="e">'+TYPES[k].emoji+'</span><span class="t">'+TYPES[k].name+'</span>';
+    b.onclick = () => { b.classList.add("picked"); setTimeout(()=>showResult(k, score), 220); };
+    box.appendChild(b);
+  });
+}
+
+function showResult(main, score){
+  const T = TYPES[main];
+  $("r-emoji").textContent = T.emoji;
+  $("r-name").textContent = T.name;
+  $("r-desc").textContent = T.desc;
+  $("r-try").innerHTML = T.tries.map(x=>"<li>• "+x+"</li>").join("");
+  const s = Object.keys(score).filter(k=>k!==main).sort((a,b)=>score[b]-score[a])[0];
+  $("r-second").innerHTML = "На втором месте: <b>"+TYPES[s].emoji+" "+TYPES[s].name+"</b>";
+  show("s-result");
+}
+
+$("go").onclick = start;
+$("again").onclick = start;
+$("back").onclick = () => { if(step>0){ step--; answers.length = step; render(); } };
+</script>
+</body>
+</html>
